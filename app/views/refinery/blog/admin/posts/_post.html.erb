@@ -1,27 +1,28 @@
-<li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= dom_id(post) -%>">
-  <span class='title'>
-    <%= post.title.presence || post.translations.detect {|t| t.title.present?}.title %>
-    <span class="preview">
-      <% post.translations.reject {|t| t.title.blank? }.each do |translation| %>
-        <%= link_to refinery.edit_blog_admin_post_path(post, :switch_locale => translation.locale),
-                    :class => 'locale' do %>
-          <div class="locale_icon <%= translation.locale %>">
-            <%= refinery_icon_tag('locale-blue.svg', :size => '24x24') %>
-            <span class="code"><%= translation.locale.upcase %></span>
-          </div>
-        <% end %>
+<tr class='record' id="<%= dom_id(post) -%>">
+  <td class="title"><%= post.title.presence || post.translations.detect {|t| t.title.present?}.title %></td>
+  <td class="preview">
+    <% post.translations.reject {|t| t.title.blank? }.each do |translation| %>
+      <%= link_to refinery.edit_blog_admin_post_path(post, :switch_locale => translation.locale),
+                  :class => 'locale' do %>
+        <div class="locale_icon <%= translation.locale %>">
+          <%= refinery_icon_tag('locale-blue.svg', :size => '24x24') %>
+          <span class="code"><%= translation.locale.upcase %></span>
+        </div>
       <% end %>
+    <% end %>
+  </td>
 
-      <%= post.published_at.try(:strftime, '%b %d, %Y') || 'draft' %>
-      <%= " by #{post.author.username}" if post.author.present? %>
-      <% if post.draft? %>
-        <span class="label notice"><%= t('refinery.blog.admin.posts.post.draft') %></span>
-      <% else %>
-        <%= post.published_at.strftime('%b %d, %Y') %>
-      <% end %>
-    </span>
-  </span>
-  <span class='actions'>
+  <td><%= post.published_at.try(:strftime, '%b %d, %Y') || 'draft' %></td>
+  <td><%= post.author.username if post.author.present? %></td>
+  <td>
+    <% if post.draft? %>
+      <span class="label notice"><%= t('refinery.blog.admin.posts.post.draft') %></span>
+    <% else %>
+      <%= post.published_at.strftime('%b %d, %Y') %>
+    <% end %>
+  </td>
+
+  <td class='actions'>
     <%= link_to refinery_icon_tag("application_go.png"), refinery.blog_post_path(post),
         :title => t('.view_live_html'),
         :target => "_blank" %>
@@ -34,5 +35,5 @@
         :data => {
           :confirm => t('message', :scope => 'refinery.admin.delete', :title => post.title)
         } %>
-  </span>
-</li>
+  </td>
+</tr>

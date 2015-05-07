@@ -1,21 +1,24 @@
-<%= render '/refinery/blog/admin/submenu' %>
+<% content_for :subnav do %>
+  <%= render '/refinery/blog/admin/submenu' %>
+<% end %>
+<%= render "/refinery/admin/search", :url => request.path %>
+
 <%= render 'refinery/admin/search_header', :url => request.path %>
-<div id='records'>
-  <% if @posts.any? %>
-    <%= will_paginate @posts %>
 
-    <%= render "sortable_list" %>
+<% if @posts.any? %>
+  <%= will_paginate @posts %>
 
-    <%= will_paginate @posts %>
+  <%= render "sortable_list" %>
+
+  <%= will_paginate @posts %>
+<% else %>
+  <% if searching? %>
+    <%= t('no_results', :scope => 'refinery.admin.search') %>
   <% else %>
-    <% if searching? %>
-      <%= t('no_results', :scope => 'refinery.admin.search') %>
-    <% else %>
-      <p>
-        <strong>
-          <%= t('.no_items_yet', :create => t('new', :scope => 'refinery.blog.admin.submenu.posts')) %>
-        </strong>
-      </p>
-    <% end %>
+    <p>
+      <strong>
+        <%= t('.no_items_yet', :create => t('new', :scope => 'refinery.blog.admin.submenu.posts')) %>
+      </strong>
+    </p>
   <% end %>
-</div>
+<% end %>
