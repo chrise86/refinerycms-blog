@@ -1,9 +1,9 @@
-<li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= "comment-#{comment.to_param}" -%>">
-  <span class='title'>
+<tr class='record' id="<%= "comment-#{comment.to_param}" -%>">
+  <td class='title'>
     <%= comment.name %>
-    <span class="preview"> - <%= truncate(comment.message, :length => 75) %></span>
-  </span>
-  <span class='actions'>
+  </td>
+  <td class="preview"><%= truncate(comment.message, :length => 75) %></td>
+  <td class='actions'>
     <%= link_to refinery_icon_tag("application_go.png"),
                 refinery.blog_post_path(comment.post, :anchor => "comment-#{comment.to_param}"),
                 :title => t('.view_live_html'),
@@ -18,5 +18,5 @@
                 refinery.approve_blog_admin_comment_path(comment),
                 :method => :post,
                 :title => t('.approve') unless comment.approved? %>
-  </span>
-</li>
+  </td>
+</tr>

@@ -1,21 +1,21 @@
-<li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= dom_id(category) -%>">
-  <span class='title'>
+<tr class='record' id="<%= dom_id(category) -%>">
+  <td class='title'>
     <%= category.title.presence || category.translations.detect {|t| t.title.present?}.title %>
-    <span class="preview">
-      <% category.translations.each do |translation| %>
-        <% if translation.title.present? %>
-          <%= link_to refinery.edit_blog_admin_category_path(category, :switch_locale => translation.locale),
-              :class => 'locale' do %>
-            <div class="locale_icon <%= translation.locale %>">
-              <%= refinery_icon_tag('locale-blue.svg', :size => '24x24') %>
-              <span class="code"><%= translation.locale.upcase %></span>
-            </div>
-          <% end %>
+  </td>
+  <td class="preview">
+    <% category.translations.each do |translation| %>
+      <% if translation.title.present? %>
+        <%= link_to refinery.edit_blog_admin_category_path(category, :switch_locale => translation.locale),
+            :class => 'locale' do %>
+          <div class="locale_icon <%= translation.locale %>">
+            <%= refinery_icon_tag('locale-blue.svg', :size => '24x24') %>
+            <span class="code"><%= translation.locale.upcase %></span>
+          </div>
         <% end %>
       <% end %>
-    </span>
-  </span>
-  <span class='actions'>
+    <% end %>
+  </td>
+  <td class='actions'>
     <%= link_to refinery_icon_tag("application_edit.png"),
                 refinery.edit_blog_admin_category_path(category),
                 :title => t('.edit') %>
@@ -26,5 +26,5 @@
                 :data => {
                   :confirm => t('message', :scope => 'refinery.admin.delete', :title => category.title)
                 } %>
-  </span>
-</li>
+  </td>
+</tr>

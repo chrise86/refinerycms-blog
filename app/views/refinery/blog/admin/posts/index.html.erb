@@ -1,9 +1,9 @@
 <% content_for :subnav do %>
   <%= render '/refinery/blog/admin/submenu' %>
 <% end %>
-<%= render "/refinery/admin/search", :url => request.path %>
+<%= render "/refinery/admin/search", url: request.path, placeholder: t('search', scope: 'refinery.admin.blog.posts') %>
 
-<%= render 'refinery/admin/search_header', :url => request.path %>
+<%= render 'refinery/admin/search_header', url: request.path %>
 
 <% if @posts.any? %>
   <%= will_paginate @posts %>

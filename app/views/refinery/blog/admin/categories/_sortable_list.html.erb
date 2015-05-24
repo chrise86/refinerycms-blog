@@ -1,5 +1,13 @@
-<ul id='sortable_list'>
+<table class="ui striped table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Locales</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
   <%= render :partial => 'category', :collection => @categories %>
-</ul>
+</table>
+
 <%= render "/refinery/admin/sortable_list",
            :continue_reordering => (defined?(continue_reordering) ? continue_reordering : true) %>
